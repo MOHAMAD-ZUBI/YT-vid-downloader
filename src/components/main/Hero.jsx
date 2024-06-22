@@ -2,6 +2,7 @@
 import React from "react";
 import axios from "axios";
 import { VscLoading } from "react-icons/vsc";
+import Footer from "./Footer";
 
 const Hero = () => {
   const [videoLink, setVideoLink] = React.useState("");
@@ -77,6 +78,7 @@ const Hero = () => {
           </p>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
