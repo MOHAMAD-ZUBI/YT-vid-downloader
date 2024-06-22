@@ -1,6 +1,28 @@
+"use client";
 import React from "react";
+import axios from "axios";
 
 const Hero = () => {
+  const [videoLink, setVideoLink] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState("");
+
+  const handleDownload = async () => {
+    if (!videoLink) {
+      return;
+    }
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `https://api.resumeiry.tech/yt-download?url=${videoLink}`
+      );
+      console.log(response.data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="mx-auto max-w-[1530px] h-[50px] px-4 mt-[173px]">
       <div className="w-full flex flex-col justify-center items-center">
@@ -16,10 +38,18 @@ const Hero = () => {
           <div className="flex flex-row">
             <input
               type="text"
-              className="w-full h-[50px] px-4 rounded-l-2xl"
+              value={videoLink}
+              onChange={(e) => setVideoLink(e.target.value)}
+              className="w-full h-[50px] px-4 rounded-l-2xl outline-none"
               placeholder="Paste your video link here"
             />
-            <button className="h-[50px] w-[120px] bg-blue-500 text-white rounded-r-2xl">
+            <button
+              disabled={!videoLink}
+              onClick={() => {
+                handleDownload();
+              }}
+              className="h-[50px] w-[120px] disabled:bg-gray-400 disabled:text-gray-500 ease-in duration-200 bg-blue-500 text-white rounded-r-2xl"
+            >
               Download
             </button>
           </div>
