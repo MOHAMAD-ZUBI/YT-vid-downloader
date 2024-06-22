@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import axios from "axios";
+import { VscLoading } from "react-icons/vsc";
 
 const Hero = () => {
   const [videoLink, setVideoLink] = React.useState("");
@@ -14,15 +15,26 @@ const Hero = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://api.resumeiry.tech/yt-download?url=${videoLink}`
+        `https://api.resumeiry.tech/yt-download?url=${videoLink}`,
+        { responseType: "blob" }
       );
-      console.log(response.data);
+
+      const blob = new Blob([response.data], { type: "video/mp4" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "https://resumeiry.tech-video.mp4";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
     } catch (error) {
       setError(error.message);
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <div className="mx-auto max-w-[1530px] h-[50px] px-4 mt-[173px]">
       <div className="w-full flex flex-col justify-center items-center">
@@ -30,9 +42,9 @@ const Hero = () => {
           Youtube Video Downloader
         </h1>
         <p className="mt-[24px] font-semibold text-center max-w-[686px]">
-          Try this unique tool for quick, hassle-free downloads from
-          YouTube.Transform your offline video collection with this reliable and
-          efficient downloader.
+          Try this unique tool for quick, hassle-free downloads from YouTube.
+          Transform your offline video collection with this reliable and
+          efficient downloader with the highest quality.
         </p>
         <div className=" max-w-[980px] w-full bg-gray-200 p-2 mt-[60px] rounded-2xl">
           <div className="flex flex-row">
@@ -44,13 +56,17 @@ const Hero = () => {
               placeholder="Paste your video link here"
             />
             <button
-              disabled={!videoLink}
-              onClick={() => {
-                handleDownload();
-              }}
-              className="h-[50px] w-[120px] disabled:bg-gray-400 disabled:text-gray-500 ease-in duration-200 bg-blue-500 text-white rounded-r-2xl"
+              disabled={!videoLink || loading}
+              onClick={handleDownload}
+              className="h-[50px] w-[120px] disabled:bg-gray-400 disabled:text-white ease-in duration-200 bg-blue-500 px-2 flex flex-row gap-2 justify-center items-center  text-white rounded-r-2xl"
             >
-              Download
+              Download{" "}
+              {loading && (
+                <VscLoading
+                  size={20}
+                  className="animate-spin font-bold fa-solid fa-circle-notch"
+                />
+              )}
             </button>
           </div>
         </div>
