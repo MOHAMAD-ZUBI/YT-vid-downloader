@@ -71,6 +71,17 @@ const Hero = () => {
             </button>
           </div>
         </div>
+        {loading && (
+          <p className="mt-[40px] ease-in duration-200">
+            please hold on tight for a moment while we process your request...
+            🚀
+          </p>
+        )}
+        {error && (
+          <p className="mt-[40px] text-red-500 ease-in duration-200">
+            Ops something went wrong please try again...
+          </p>
+        )}
         <div className="w-full bg-black flex rounded-xl justify-center mt-[64px] md:min-h-[90px] items-center">
           <p className="text-white font-semibold p-4">
             Downloading videos from YouTube is against their terms of service.
