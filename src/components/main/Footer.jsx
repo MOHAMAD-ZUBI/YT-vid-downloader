@@ -10,7 +10,7 @@ const Footer = () => {
       </div>
 
       <div className=" h-[100px] flex flex-col items-center justify-center bg-white">
-        <p className="py-2">© 2023 Mohamad Zubi</p>
+        <p className="py-2">© 2024 Mohamad Zubi</p>
         <div className=" flex justify-between gap-2 items-center">
           <Link
             href="https://github.com/MOHAMAD-ZUBI"

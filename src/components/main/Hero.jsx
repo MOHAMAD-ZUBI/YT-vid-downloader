@@ -42,7 +42,7 @@ const Hero = () => {
         <h1 className=" md:text-[56px] text-4xl max-md:text-center font-semibold ">
           Youtube Video Downloader
         </h1>
-        <p className="mt-[24px] font-semibold text-center max-w-[686px]">
+        <p className="mt-[24px] font-semibold text-center max-w-[692px]">
           Try this unique tool for quick, hassle-free downloads from YouTube.
           Transform your offline video collection with this reliable and
           efficient downloader with the highest quality.
